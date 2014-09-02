@@ -1,0 +1,27 @@
+<div ng-controller="ItemListController" class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <h3>Items</h3>
+      <input ng-model="query"  placeholder="Type to search..." id="itemQuery">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <td>Number</td>
+            <td>Name</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in items | filter:query">
+            <td>{{item.id}}</td>
+            <td><a href="#/item/{{item.id}}">{{item.name}}</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,45 @@
+ext {
+   springBootVersion = "1.1.5.RELEASE"
+   springVersion = "4.0.6.RELEASE"
+   angularjsVersion = "1.2.23"
+   jqueryVersion = "2.1.1"
+   bootstrapVersion = "3.2.0"
+   snapshotVersion = "$releaseVersion-SNAPSHOT"
+}
+ext["currentVersion"] = hasProperty("release") ? releaseVersion : snapshotVersion;
+
+allprojects {
+   apply plugin: 'maven'
+
+   group = "net.contrapt"
+   version = currentVersion;
+}
+description = 'Auction Application'
+
+
+task wrapper(type: Wrapper) {
+   gradleVersion = '2.0'
+}
+
+subprojects {
+   
+   apply plugin: 'java'
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    dependencies {
+    }
+
+// Define system properties required by tests
+   test {
+      testLogging.showStandardStreams = true
+      testLogging.exceptionFormat= "full"
+      systemProperties = [
+         'test.dataDirectory': "$buildDir/resources/test",
+      ]
+   }
+}
+

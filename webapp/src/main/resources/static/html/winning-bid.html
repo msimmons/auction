@@ -1,0 +1,45 @@
+<div ng-controller="WinningBidController">
+  <h3>Winning Bids</h3>
+  <form class="form-inline" role="form" ng-submit="addBid()">
+    <div class="form-group">
+      <label for="itemId">Item #</label>
+      <input type="number" class="form-control" id="itemId" placeholder="Item #" ng-model="itemId" ng-change="clearItem()" ng-blur="getItem()"/>
+      <span class="form-control-static">{{item.name}}</span>
+    </div>
+    <div class="form-group">
+      <label for="bidderId">Bidder #</label>
+      <input type="number" class="form-control" id="bidderId" placeholder="Bidder #" ng-model="bidderId" ng-blur="getBidder()"/>
+      <input class="form-control" type="text" placeholder="Bidder Name" readonly ng-model="bidder.name"/>
+    </div>
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <!--div class="input-group"-->
+        <!--div class="input-group-addon">$</div-->
+      <input size="10" class="form-control" id="amount" placeholder="Winning Bid" ng-model="amount"/>
+      <!--/div-->
+    </div>
+    <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+  </form>
+    <div ng-show="error" class="error">{{error}}</div>
+    <div><hr/></div>
+    <div class="row">
+        <div class="col-md-10">
+            <table class="table table-striped table-bordered table-condensed">
+                <thead>
+                <tr>
+                    <td>Bidder</td>
+                    <td>Amount</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="bid in item.bids">
+                    <td>{{bid.bidderId}}</td>
+                    <td>{{bid.amount | currency}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <span ng-if="!item.bids.length">No winning bids</span>
+        </div>
+    </div>
+</div>
+

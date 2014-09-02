@@ -1,0 +1,31 @@
+<div ng-controller="BidderListController" class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <h3>Bidders</h3>
+      <input ng-model="query" placeholder="Type to search..." id="bidderQuery"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <td>Number</td>
+            <td>Name</td>
+            <td>Winner</td>
+            <td>Balance</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="bidder in bidders | filter:query">
+            <td>{{bidder.id}}</td>
+            <td><a href="#/bidder/{{bidder.id}}">{{bidder.name}}</a></td>
+            <td>{{bidder.winner}}</td>
+            <td><a href="#/payment/{{bidder.id}}">{{bidder.balance | currency}}</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

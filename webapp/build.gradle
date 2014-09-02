@@ -1,0 +1,31 @@
+apply plugin: 'spring-boot'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+dependencies {
+   
+   compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
+      "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}",
+      "org.webjars:angularjs:${angularjsVersion}",
+      "org.webjars:jquery:${jqueryVersion}",
+      "org.webjars:bootstrap:${bootstrapVersion}"
+
+   testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+
+}
+
+processResources {
+   from(sourceSets.main.resources) {
+      expand(project.properties)
+      include("index.html")
+   }
+}
+
