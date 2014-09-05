@@ -1,6 +1,7 @@
 var auctionApp = angular.module('auctionApp', [
       'ngRoute',
       'ngResource',
+      'ui.bootstrap',
       'auctionControllers',
       'auctionServices'
 ]);

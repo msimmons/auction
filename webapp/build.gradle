@@ -16,7 +16,8 @@ dependencies {
       "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}",
       "org.webjars:angularjs:${angularjsVersion}",
       "org.webjars:jquery:${jqueryVersion}",
-      "org.webjars:bootstrap:${bootstrapVersion}"
+      "org.webjars:bootstrap:${bootstrapVersion}",
+      "org.webjars:angular-ui-bootstrap:${angularUiVersion}"
 
    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
 
@@ -25,7 +26,7 @@ dependencies {
 processResources {
    from(sourceSets.main.resources) {
       expand(project.properties)
-      include("index.html")
+      include("**/*.properties")
    }
 }
 

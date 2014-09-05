@@ -3,6 +3,7 @@
     <div class="col-md-2">
       <h3>Bidders</h3>
       <input ng-model="query" placeholder="Type to search..." id="bidderQuery"/>
+      <b>Matches {{filteredBidders.length}} of {{bidders.length}}</b>
     </div>
   </div>
   <div class="row">
@@ -17,7 +18,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="bidder in bidders | filter:query">
+          <tr ng-repeat="bidder in filteredBidders = (bidders | filter:query)" ng-if="bidderOnPage($index, filteredBidders.length)">
             <td>{{bidder.id}}</td>
             <td><a href="#/bidder/{{bidder.id}}">{{bidder.name}}</a></td>
             <td>{{bidder.winner}}</td>
@@ -25,6 +26,7 @@
           </tr>
         </tbody>
       </table>
+      <pagination total-items="filteredBidders.length" class="pagination-sm" items-per-page="itemsPerPage" ng-model="currentPage"></pagination>
     </div>
   </div>
 </div>
