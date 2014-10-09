@@ -12,7 +12,8 @@ buildscript {
 
 dependencies {
    
-   compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
+   compile project(":service"),
+    "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
       "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}",
       "org.webjars:angularjs:${angularjsVersion}",
       "org.webjars:jquery:${jqueryVersion}",

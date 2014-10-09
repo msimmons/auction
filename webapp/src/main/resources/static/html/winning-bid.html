@@ -1,26 +1,27 @@
 <div ng-controller="WinningBidController">
   <h3>Winning Bids</h3>
-  <form class="form-inline" role="form" ng-submit="addBid()">
-    <div class="form-group">
-      <label for="itemId">Item #</label>
-      <input type="number" class="form-control" id="itemId" placeholder="Item #" ng-model="itemId" ng-change="clearItem()" ng-blur="getItem()"/>
-      <span class="form-control-static">{{item.name}}</span>
+  <form class="form-inline" role="form" ng-submit="addBid()" novalidate name="form">
+    <div class="form-group" ng-class="{'has-error':form.itemId.$invalid && !form.itemId.$pristine}">
+      <label>Item #</label>
+      <input type="number" class="form-control" name="itemId" id="itemId" placeholder="Item #" ng-model="itemId" ng-change="clearItem()" ng-blur="getItem()" required/>
+      <input class="form-control" type="text" placeholder="Item Name" readonly ng-model="item.name"/>
     </div>
-    <div class="form-group">
-      <label for="bidderId">Bidder #</label>
-      <input type="number" class="form-control" id="bidderId" placeholder="Bidder #" ng-model="bidderId" ng-blur="getBidder()"/>
+    <div class="form-group" ng-class="{'has-error':form.bidderId.$invalid && !form.bidderId.$pristine}">
+      <label>Bidder #</label>
+      <input type="number" class="form-control" name="bidderId" id="bidderId" placeholder="Bidder #" ng-model="bidderId" ng-change="clearBidder()" ng-blur="getBidder()" required/>
       <input class="form-control" type="text" placeholder="Bidder Name" readonly ng-model="bidder.name"/>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-class="{'has-error':form.amount.$invalid && !form.amount.$pristine}">
       <label for="amount">Amount</label>
       <!--div class="input-group"-->
         <!--div class="input-group-addon">$</div-->
-      <input size="10" class="form-control" id="amount" placeholder="Winning Bid" ng-model="amount"/>
+      <input size="10" class="form-control" id="amount" name="amount" placeholder="Winning Bid" ng-model="amount" type="number" required/>
       <!--/div-->
     </div>
     <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
   </form>
-    <div ng-show="error" class="error">{{error}}</div>
+    <span ng-show="error" class="error">{{error}}</span>
+    <span ng-show="!form.itemId.$pristine && form.itemId.$invalid" class="help-block">Enter a valid numeric item id</span>
     <div><hr/></div>
     <div class="row">
         <div class="col-md-10">

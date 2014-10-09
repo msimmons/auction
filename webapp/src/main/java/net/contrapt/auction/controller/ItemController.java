@@ -14,6 +14,8 @@ public class ItemController extends BaseController {
 
     @RequestMapping(value = "/item/{itemId}", method = RequestMethod.GET)
     public Item get(@PathVariable(value = "itemId") Integer itemId) {
+        if ( itemId < 0 || itemId > items.length-1 )
+            throw new IllegalArgumentException("No item with id "+itemId+" exists");
         return items[itemId-1];
     }
 
