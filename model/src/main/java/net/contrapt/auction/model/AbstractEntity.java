@@ -2,13 +2,11 @@ package net.contrapt.auction.model;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -67,8 +65,26 @@ public abstract class AbstractEntity {
         return updatedAt;
     }
 
+    /**
+     * Each entity should define its unique business key so that this abstract class can implement hash code and
+     * equals based on that
+     * @return A unique key string for the entity
+     */
+    public abstract String uniqueKey();
+
     @Override
     public String toString() {
         return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
+
+    @Override
+    public int hashCode() {
+        return uniqueKey().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if ( o != null && getClass().equals(o.getClass()) ) return ((AbstractEntity)o).uniqueKey().equals(uniqueKey());
+        else return false;
     }
 }

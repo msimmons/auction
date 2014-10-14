@@ -1,9 +1,9 @@
 package net.contrapt.auction.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by msimmons on 10/9/14.
@@ -12,7 +12,14 @@ import java.math.BigDecimal;
 @Table(name = "bidder")
 public class Bidder extends AbstractEntity {
 
+    @Column
     private String name;
+
+    @OneToMany(mappedBy = "bidder", fetch = FetchType.LAZY)
+    private List<WinningBid> winningBids = new ArrayList<WinningBid>();
+
+    @OneToMany(mappedBy = "bidder", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Payment> payments = new ArrayList<Payment>();
 
     protected Bidder() {}
 
@@ -26,5 +33,18 @@ public class Bidder extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<WinningBid> getWinningBids() {
+        return winningBids;
+    }
+
+    public void addPayment(String reference, BigDecimal amount) {
+        payments.add(new Payment(this, reference, amount));
+    }
+
+    @Override
+    public String uniqueKey() {
+        return name;
     }
 }

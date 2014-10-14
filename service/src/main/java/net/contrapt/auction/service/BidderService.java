@@ -1,6 +1,10 @@
 package net.contrapt.auction.service;
 
+import net.contrapt.auction.model.Bidder;
+import net.contrapt.auction.model.BidderSummary;
+
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Manage bidder data
@@ -11,7 +15,7 @@ public interface BidderService {
      * Return a list of summarized bidder objects
      * @return
      */
-    public Collection<BidderSummary> getBidders();
+    public List<BidderSummary> getBidders();
 
     /**
      * Return full bidder object with all relationships

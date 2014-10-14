@@ -1,8 +1,8 @@
 package net.contrapt.auction.controller;
 
-import net.contrapt.auction.service.Bidder;
+import net.contrapt.auction.model.Bidder;
+import net.contrapt.auction.model.BidderSummary;
 import net.contrapt.auction.service.BidderService;
-import net.contrapt.auction.service.BidderSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

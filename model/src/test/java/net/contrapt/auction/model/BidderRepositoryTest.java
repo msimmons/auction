@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Created by msimmons on 10/9/14.
@@ -26,27 +28,11 @@ public class BidderRepositoryTest {
     @Autowired
     BidderRepository bidderRepository;
 
-    @Test
-    public void testSomething() {
-        Bidder bidder = bidderRepository.save(new Bidder("Mark Simmons"));
-        System.out.println(bidder);
-        Bidder savedBidder = bidderRepository.findOne(bidder.getId());
-        System.out.println(savedBidder);
-        savedBidder.setName("Laurie Rothstein");
-        bidderRepository.save(savedBidder);
-        entityManager.flush();
-        System.out.println(savedBidder);
-    }
+    @Autowired
+    WinningBidRepository winningBidRepository;
 
-    @Test
-    public void testOther() {
-        Assert.assertFalse(bidderRepository.findAll().iterator().hasNext());
-        bidderRepository.save(new Bidder("Mark Simmons"));
-        bidderRepository.save(new Bidder("Laurie Rothstein"));
-        bidderRepository.save(new Bidder("Jesse Simmons"));
-        Assert.assertEquals(3, bidderRepository.count());
-        Assert.assertTrue(bidderRepository.exists(1L));
-    }
+    @Autowired
+    ItemRepository itemRepository;
 
     @Test
     public void testFindByName() {
@@ -54,5 +40,20 @@ public class BidderRepositoryTest {
         Bidder saved = bidderRepository.findByName("Mark Simmons");
         Assert.assertNotNull(saved);
         Assert.assertEquals("Mark Simmons", saved.getName());
+    }
+
+    @Test
+    public void testSummary() {
+        Bidder bidder = new Bidder("Mark Simmons");
+        bidder.addPayment("REF1029", BigDecimal.TEN);
+        bidderRepository.save(bidder);
+        Item item = new Item("Apple Pie");
+        itemRepository.save(item);
+        winningBidRepository.save(new WinningBid(item, bidder, BigDecimal.valueOf(5)));
+        entityManager.clear();
+        List<BidderSummary> summaries = bidderRepository.findAllSummary();
+        for ( BidderSummary summary : summaries ) {
+            System.out.println(summary.getName()+" "+summary.getTotalBids()+" "+summary.getTotalPayments());
+        }
     }
 }
