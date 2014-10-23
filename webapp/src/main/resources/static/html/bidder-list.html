@@ -13,16 +13,16 @@
           <tr>
             <td>Number</td>
             <td>Name</td>
-            <td>Winner</td>
-            <td>Balance</td>
+            <td>Bids</td>
+            <td>Payments</td>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="bidder in filteredBidders = (bidders | filter:query)" ng-if="bidderOnPage($index)">
             <td>{{bidder.id}}</td>
             <td><a href="#/bidder/{{bidder.id}}">{{bidder.name}}</a></td>
-            <td>{{bidder.winner}}</td>
-            <td><a href="#/payment/{{bidder.id}}">{{bidder.balance | currency}}</a></td>
+            <td><a href="#/payment/{{bidder.id}}">{{bidder.totalBids | currency}}</a></td>
+            <td><a href="#/payment/{{bidder.id}}">{{bidder.totalPayments | currency}}</a></td>
           </tr>
         </tbody>
       </table>

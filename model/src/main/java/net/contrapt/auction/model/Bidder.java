@@ -21,6 +21,10 @@ public class Bidder extends AbstractEntity {
     @OneToMany(mappedBy = "bidder", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Payment> payments = new ArrayList<Payment>();
 
+    public static Bidder create() {
+        return new Bidder();
+    }
+
     protected Bidder() {}
 
     public Bidder(String name) {

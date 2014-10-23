@@ -23,12 +23,15 @@ public class BidderController extends BaseController {
 
     @RequestMapping(value = "/bidder/{bidderId}", method = RequestMethod.GET)
     public Bidder get(@PathVariable(value = "bidderId") Long bidderId) {
-        return bidderService.getBidder(bidderId);
+        Bidder bidder = bidderId < 0 ? Bidder.create() : bidderService.getBidder(bidderId);
+        if ( bidder == null ) throw new IllegalArgumentException("No bidder found with id "+bidderId);
+        return bidder;
     }
 
     @RequestMapping(value = "/bidder", method = RequestMethod.GET)
     public Collection<BidderSummary> query() {
-        return bidderService.getBidders();
+        Collection<BidderSummary> bidders = bidderService.getBidders();
+        return bidders;
     }
 
     @RequestMapping(value = "/bidder", method = RequestMethod.POST)

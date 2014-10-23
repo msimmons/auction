@@ -16,6 +16,7 @@ auctionControllers.controller('BidderListController', ['$scope', 'BidderResource
 
 auctionControllers.controller('BidderController', ['$scope', '$routeParams', 'BidderResource',
    function($scope, $routeParams, BidderResource) {
+      $scope.isCreate = ($routeParams.bidderId == -1);
       $scope.bidder = BidderResource.get({bidderId:$routeParams.bidderId});
       $scope.saveBidder = function() {
          $scope.bidder.$save();

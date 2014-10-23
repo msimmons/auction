@@ -79,7 +79,7 @@ public abstract class AbstractEntity {
 
     @Override
     public int hashCode() {
-        return uniqueKey().hashCode();
+        return uniqueKey()==null ? "".hashCode() : uniqueKey().hashCode();
     }
 
     @Override

@@ -1,4 +1,36 @@
 <div ng-controller="BidderController">
-    <span>Bidder info for bidder {{bidder.id}}</span>
-</div>
+    <form class="form-horizontal" role="form" ng-submit="saveBidder()">
+        <div class="form-group">
+            <label for="id" class="col-sm-2 control-label">Bidder Number</label>
 
+            <div class="col-sm-10">
+                <input type="text" ng-model="bidder.id" class="form-control" id="id" placeholder="Bidder Id" disabled/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Name</label>
+
+            <div class="col-sm-10">
+                <input type="text" ng-model="bidder.name" class="form-control" id="name" placeholder="Bidder Name"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" class="btn btn-primary" value="Save"/>
+                <a class="btn btn-warning" ng-click="cancelEdit()">Cancel</a>
+                <a class="btn btn-danger" ng-click="deleteBidder()"><i class="icon-trash"></i>Delete</a>
+                <a class="btn btn-info" href="#/bidder/-1">New</a>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="createdBy" class="col-sm-2 control-label">Created By</label>
+            <span id="createdBy" class="form-control-static col-sm-2">{{bidder.createdBy}}</span>
+            <span id="createdAt" class="form-control-static col-sm-3"><b>at</b> {{bidder.createdAt | date:'medium'}}</span>
+        </div>
+        <div class="form-group">
+            <label for="updatedBy" class="col-sm-2 control-label">Updated By</label>
+            <span id="updatedBy" class="form-control-static col-sm-2">{{bidder.updatedBy}}</span>
+            <span id="updatedAt" class="form-control-static col-sm-3"><b>at</b> {{bidder.updatedAt | date:'medium'}}</span>
+        </div>
+    </form>
+</div>

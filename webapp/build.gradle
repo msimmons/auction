@@ -20,6 +20,8 @@ dependencies {
       "org.webjars:bootstrap:${bootstrapVersion}",
       "org.webjars:angular-ui-bootstrap:${angularUiVersion}"
 
+   runtime "org.hsqldb:hsqldb"
+
    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
 
 }
