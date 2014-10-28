@@ -12,6 +12,8 @@ public interface BidderRepository extends CrudRepository<Bidder, Long> {
 
     public Bidder findByName(String name);
 
+    public Bidder findByContactEmail(String email);
+
     @Query(
           "select NEW net.contrapt.auction.model.BidderSummary(bidder.id, bidder.name, sum(bid.amount), sum(payment.amount)) " +
           "from Bidder bidder FETCH ALL PROPERTIES " +

@@ -27,6 +27,18 @@ public class WinningBid extends AbstractEntity {
         this.amount = amount;
     }
 
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public Long getItemId() {
+        return item.getId();
+    }
+
+    public Long getBidderId() {
+        return bidder.getId();
+    }
+
     @Override
     public String uniqueKey() {
         return bidder.uniqueKey()+":"+item.uniqueKey();

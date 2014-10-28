@@ -95,7 +95,7 @@ auctionControllers.controller('WinningBidController', ['$scope', '$timeout', 'It
          if ( !$scope.bidderId || !$scope.amount ) return;
          $scope.bid = new BidResource({itemId:$scope.itemId, bidderId:$scope.bidderId, amount:$scope.amount});
          $scope.bid.$save({}, function(bid) {
-            $scope.item.bids.push(bid)
+            $scope.item.winningBids.push(bid)
             $scope.clearBidder();
             $scope.bidderId = null;
          }, function(response) {

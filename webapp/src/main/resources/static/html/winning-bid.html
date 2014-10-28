@@ -33,13 +33,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="bid in item.bids">
+                <tr ng-repeat="bid in item.winningBids">
                     <td>{{bid.bidderId}}</td>
                     <td>{{bid.amount | currency}}</td>
                 </tr>
                 </tbody>
             </table>
-            <span ng-if="!item.bids.length">No winning bids</span>
+            <span ng-if="!item.winningBids.length">No winning bids</span>
         </div>
     </div>
 </div>

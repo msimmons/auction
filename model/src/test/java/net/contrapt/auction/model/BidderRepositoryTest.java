@@ -43,6 +43,16 @@ public class BidderRepositoryTest {
     }
 
     @Test
+    public void findByEmail() {
+        Bidder bidder = new Bidder("Mark Simmons");
+        bidder.setContact(new ContactInfo("msimmons@gmail.com"));
+        bidderRepository.save(bidder);
+        Bidder saved = bidderRepository.findByContactEmail("msimmons@gmail.com");
+        Assert.assertNotNull(saved);
+        Assert.assertEquals("Mark Simmons", saved.getName());
+    }
+
+    @Test
     public void testSummary() {
         Bidder bidder = new Bidder("Mark Simmons");
         bidder.addPayment("REF1029", BigDecimal.TEN);
@@ -55,5 +65,15 @@ public class BidderRepositoryTest {
         for ( BidderSummary summary : summaries ) {
             System.out.println(summary.getName()+" "+summary.getTotalBids()+" "+summary.getTotalPayments());
         }
+    }
+
+    @Test
+    public void testContact() {
+        Bidder bidder = new Bidder("Mark Simmons");
+        ContactInfo contactInfo = new ContactInfo();
+        contactInfo.email = "msimmons@gmail.com";
+        contactInfo.phone = "888 888 8888";
+        bidder.setContact(contactInfo);
+        bidderRepository.save(bidder);
     }
 }

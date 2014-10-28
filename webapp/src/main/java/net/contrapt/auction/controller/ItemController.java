@@ -1,5 +1,8 @@
 package net.contrapt.auction.controller;
 
+import net.contrapt.auction.model.Item;
+import net.contrapt.auction.service.ItemService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,44 +15,22 @@ import java.util.List;
 @RestController
 public class ItemController extends BaseController {
 
+    @Autowired
+    ItemService itemService;
+
     @RequestMapping(value = "/item/{itemId}", method = RequestMethod.GET)
-    public Item get(@PathVariable(value = "itemId") Integer itemId) {
-        if ( itemId < 0 || itemId > items.length-1 )
-            throw new IllegalArgumentException("No item with id "+itemId+" exists");
-        return items[itemId-1];
+    public Item get(@PathVariable(value = "itemId") Long itemId) {
+        return itemService.getItem(itemId);
     }
 
     @RequestMapping(value = "/item", method = RequestMethod.GET)
     public List<Item> query() {
-        return Arrays.asList(items);
+        return itemService.getItems();
     }
 
     @RequestMapping(value = "/item", method = RequestMethod.POST)
     public Item save(@RequestBody Item item) {
-        items[item.getId()-1] = item;
-        return item;
+        return itemService.saveItem(item);
     }
 
-    private static Item[] items = new Item[] {
-          new Item(1, "Jesse's Apple Pie"),
-          new Item(2, "Farm Share"),
-          new Item(3, "Weekend in Vermont")
-    };
-
-    private static class Item {
-        Integer id;
-        String name;
-        List<BidController.Bid> bids = new ArrayList<BidController.Bid>();
-
-        Item() {}
-
-        Item(Integer id, String name) {
-            this.id = id;
-            this.name =name;
-        }
-
-        public Integer getId() {return id;}
-        public String getName() {return name;}
-        public List<BidController.Bid> getBids() {return bids;}
-    }
 }

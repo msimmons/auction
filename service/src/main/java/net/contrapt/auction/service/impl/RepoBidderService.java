@@ -13,7 +13,7 @@ import java.util.*;
 /**
  * Created by msimmons on 9/23/14.
  */
-public class RepositoryBidderService implements BidderService {
+public class RepoBidderService implements BidderService {
 
     @Autowired
     private BidderRepository bidderRepository;
