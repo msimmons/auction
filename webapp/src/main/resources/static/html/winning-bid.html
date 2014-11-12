@@ -2,20 +2,18 @@
   <h3>Winning Bids</h3>
   <form class="form-inline" role="form" ng-submit="addBid()" novalidate name="form">
     <div class="form-group" ng-class="{'has-error':form.itemId.$invalid && !form.itemId.$pristine}">
-      <label>Item #</label>
-      <input type="number" class="form-control" name="itemId" id="itemId" placeholder="Item #" ng-model="itemId" ng-change="clearItem()" ng-blur="getItem()" required/>
+      <input type="number" size="4" class="form-control col-sm-1" name="itemId" id="itemId" placeholder="Item #" ng-model="itemId" ng-change="clearItem()" ng-blur="getItem()" required/>
       <input class="form-control" type="text" placeholder="Item Name" readonly ng-model="item.name"/>
     </div>
     <div class="form-group" ng-class="{'has-error':form.bidderId.$invalid && !form.bidderId.$pristine}">
-      <label>Bidder #</label>
-      <input type="number" class="form-control" name="bidderId" id="bidderId" placeholder="Bidder #" ng-model="bidderId" ng-change="clearBidder()" ng-blur="getBidder()" required/>
+      <input type="number" class="form-control col-sm-2" name="bidderId" id="bidderId" placeholder="Bidder #" ng-model="bidderId" ng-change="clearBidder()" ng-blur="getBidder()" ng-disabled="!allowBids()" required/>
       <input class="form-control" type="text" placeholder="Bidder Name" readonly ng-model="bidder.name"/>
     </div>
     <div class="form-group" ng-class="{'has-error':form.amount.$invalid && !form.amount.$pristine}">
-      <label for="amount">Amount</label>
+      <!--label for="amount">Amount</label-->
       <!--div class="input-group"-->
         <!--div class="input-group-addon">$</div-->
-      <input size="10" class="form-control" id="amount" name="amount" placeholder="Winning Bid" ng-model="amount" type="number" required/>
+      <input size="10" class="form-control col-sm-2" id="amount" name="amount" placeholder="Winning Bid" ng-model="amount" type="number" ng-disabled="!allowBids()" required/>
       <!--/div-->
     </div>
     <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
@@ -40,6 +38,7 @@
                 </tbody>
             </table>
             <span ng-if="!item.winningBids.length">No winning bids</span>
+            <span ng-if="!allowBids()">No more bids allowed</span>
         </div>
     </div>
 </div>

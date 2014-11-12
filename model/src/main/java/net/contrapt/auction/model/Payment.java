@@ -17,21 +17,25 @@ public class Payment extends AbstractEntity {
     private String reference;
 
     @Column
+    private String method;
+
+    @Column
     private BigDecimal amount;
 
-    @ManyToOne
-    private Bidder bidder;
+    @Column
+    private Long bidderId;
 
     protected Payment() {}
 
-    public Payment(Bidder bidder, String reference, BigDecimal amount) {
-        this.bidder = bidder;
+    public Payment(Long bidderId, String method, String reference, BigDecimal amount) {
+        this.bidderId = bidderId;
+        this.method = method;
         this.reference = reference;
         this.amount = amount;
     }
 
     @Override
     public String uniqueKey() {
-        return reference;
+        return bidderId+":"+method+":"+reference;
     }
 }

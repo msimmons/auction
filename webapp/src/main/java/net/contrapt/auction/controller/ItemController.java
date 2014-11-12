@@ -1,6 +1,7 @@
 package net.contrapt.auction.controller;
 
 import net.contrapt.auction.model.Item;
+import net.contrapt.auction.model.ItemSummary;
 import net.contrapt.auction.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class ItemController extends BaseController {
     }
 
     @RequestMapping(value = "/item", method = RequestMethod.GET)
-    public List<Item> query() {
+    public List<ItemSummary> query() {
         return itemService.getItems();
     }
 

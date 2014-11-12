@@ -10,11 +10,13 @@ import java.math.BigDecimal;
 @Table(name = "winning_bid")
 public class WinningBid extends AbstractEntity {
 
-    @ManyToOne
-    private Bidder bidder;
+    //@ManyToOne(fetch = FetchType.EAGER, optional = false)
+    //private Bidder bidder;
+    private Long bidderId;
 
-    @ManyToOne
-    private Item item;
+    //@ManyToOne(fetch = FetchType.EAGER, optional = false)
+    //private Item item;
+    private Long itemId;
 
     @Column
     private BigDecimal amount;
@@ -22,8 +24,8 @@ public class WinningBid extends AbstractEntity {
     protected WinningBid() {}
 
     public WinningBid(Item item, Bidder bidder, BigDecimal amount) {
-        this.item = item;
-        this.bidder = bidder;
+        this.itemId = item.getId();
+        this.bidderId = bidder.getId();
         this.amount = amount;
     }
 
@@ -32,15 +34,15 @@ public class WinningBid extends AbstractEntity {
     }
 
     public Long getItemId() {
-        return item.getId();
+        return itemId;
     }
 
     public Long getBidderId() {
-        return bidder.getId();
+        return bidderId;
     }
 
     @Override
     public String uniqueKey() {
-        return bidder.uniqueKey()+":"+item.uniqueKey();
+        return bidderId+":"+itemId;
     }
 }

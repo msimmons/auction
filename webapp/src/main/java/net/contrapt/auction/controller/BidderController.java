@@ -2,15 +2,13 @@ package net.contrapt.auction.controller;
 
 import net.contrapt.auction.model.Bidder;
 import net.contrapt.auction.model.BidderSummary;
+import net.contrapt.auction.model.WinningBid;
 import net.contrapt.auction.service.BidderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by msimmons on 8/28/14.
@@ -28,7 +26,7 @@ public class BidderController extends BaseController {
         return bidder;
     }
 
-    @RequestMapping(value = "/bidder", method = RequestMethod.GET)
+    @RequestMapping(value="/bidder", method = RequestMethod.GET)
     public Collection<BidderSummary> query() {
         Collection<BidderSummary> bidders = bidderService.getBidders();
         return bidders;

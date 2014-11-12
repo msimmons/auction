@@ -1,5 +1,6 @@
 package net.contrapt.auction.model.config;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
@@ -26,15 +27,16 @@ import java.util.Properties;
 @EnableJpaRepositories("net.contrapt.auction.model")
 @EnableJpaAuditing
 @EnableTransactionManagement
+@EnableAutoConfiguration
 public class RepositoryTestConfig {
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost/auction");
-        dataSource.setUsername( "app" );
-        dataSource.setPassword( "qwerty" );
+        dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
+        dataSource.setUrl("jdbc:hsqldb:mem:.");
+        dataSource.setUsername( "sa" );
+        dataSource.setPassword( "" );
         return dataSource;
     }
 
@@ -64,7 +66,8 @@ public class RepositoryTestConfig {
     Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.format_sql", "true");
         return properties;

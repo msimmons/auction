@@ -19,3 +19,9 @@ function($resource) {
    return $resource('/api/bid', {}, {
    });
 }])
+
+auctionServices.factory('PaymentResource', ['$resource',
+function($resource) {
+   return $resource('/api/payment', {}, {
+   });
+}])

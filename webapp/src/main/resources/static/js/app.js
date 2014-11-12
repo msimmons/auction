@@ -25,8 +25,12 @@ auctionApp.config(['$routeProvider',
         templateUrl: 'html/item.html',
         controller: 'ItemController'
       }).
-      when('/payment/:bidderId', {
-        templateUrl: 'html/payment.html',
+      when('/payments/:bidderId', {
+        templateUrl: 'html/payments.html',
+        controller: 'PaymentController'
+      }).
+      when('/payments', {
+        templateUrl: 'html/payments.html',
         controller: 'PaymentController'
       }).
       when('/winning-bids', {

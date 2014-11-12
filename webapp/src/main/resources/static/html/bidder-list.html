@@ -21,14 +21,14 @@
           <tr ng-repeat="bidder in filteredBidders = (bidders | filter:query)" ng-if="bidderOnPage($index)">
             <td>{{bidder.id}}</td>
             <td><a href="#/bidder/{{bidder.id}}">{{bidder.name}}</a></td>
-            <td><a href="#/payment/{{bidder.id}}">{{bidder.totalBids | currency}}</a></td>
-            <td><a href="#/payment/{{bidder.id}}">{{bidder.totalPayments | currency}}</a></td>
+            <td><a href="#/payments/{{bidder.id}}">{{bidder.totalBids | currency}}</a></td>
+            <td><a href="#/payments/{{bidder.id}}">{{bidder.totalPayments | currency}}</a></td>
           </tr>
         </tbody>
       </table>
       <pagination total-items="filteredBidders.length" class="pagination-sm" items-per-page="itemsPerPage" ng-model="currentPage"></pagination>
     </div>
-    <div class="col-sm-offset-2 col-sm-10">
+    <div class="col-sm-10">
         <a class="btn btn-info" href="#/bidder/-1">New Bidder</a>
     </div>
   </div>

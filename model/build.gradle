@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'groovy'
 
 dependencies {
    
@@ -6,6 +7,16 @@ dependencies {
            "commons-lang:commons-lang:2.6"
 
        testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}",
-           "mysql:mysql-connector-java:5.1.31"
+           "org.codehaus.groovy:groovy:2.3.3",
+           "org.spockframework:spock-core:0.7-groovy-2.0",
+           "org.spockframework:spock-spring:0.7-groovy-2.0"
+
+       testRuntime "org.hsqldb:hsqldb:2.3.2",
+           "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
 
 }
+
+test {
+    testLogging.showStandardStreams = true
+}
+

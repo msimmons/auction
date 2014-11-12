@@ -1,6 +1,7 @@
 package net.contrapt.auction.service;
 
 import net.contrapt.auction.model.Item;
+import net.contrapt.auction.model.ItemSummary;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public interface ItemService {
 
-    public List<Item> getItems();
+    public List<ItemSummary> getItems();
 
     public Item saveItem(Item item);
 

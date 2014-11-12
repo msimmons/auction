@@ -33,3 +33,6 @@ processResources {
    }
 }
 
+bootRun {
+    systemProperty 'hsqldb.location', "${buildDir}/data/auction"
+}

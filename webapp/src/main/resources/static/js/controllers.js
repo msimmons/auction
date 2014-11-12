@@ -46,9 +46,45 @@ auctionControllers.controller('ItemController', ['$scope', '$routeParams', 'Item
    }
 ]);
 
-auctionControllers.controller('PaymentController', ['$scope', '$routeParams',
-   function($scope, $routeParams) {
+auctionControllers.controller('PaymentController', ['$scope', '$routeParams', 'BidderResource', 'PaymentResource',
+   function($scope, $routeParams, BidderResource, PaymentResource) {
       $scope.bidderId = $routeParams.bidderId;
+      $('#bidderId').focus();
+      $scope.getBidder = function() {
+         if ( !$scope.bidderId ) return;
+         $scope.bidder = BidderResource.get({bidderId:$scope.bidderId},
+         function(bidder) {
+            $('#method').focus();
+         },
+         function(response) {
+            $scope.error=response.data.exception;
+            $('#bidderId').focus();
+         });
+      }
+
+      $scope.clearBidder = function() {
+         $scope.bidder = null;
+         $scope.reference = null;
+         $scope.amount = null;
+         $scope.error = null;
+      }
+
+      $scope.addPayment = function() {
+         if ( !$scope.bidderId || !$scope.amount ) return;
+         $scope.payment = new PaymentResource({bidderId:$scope.bidderId, method:$scope.method, reference:$scope.reference, amount:$scope.amount});
+         $scope.payment.$save({}, function(payment) {
+            $scope.bidder.payments.push(payment)
+            $scope.clearBidder();
+            $scope.bidderId = null;
+         }, function(response) {
+            $scope.error = response.data.exception;
+         });
+         $('#bidderId').focus();
+      }
+
+      $scope.allowPayments = function() {
+         return true;
+      }
    }
 ]);
 
@@ -72,7 +108,7 @@ auctionControllers.controller('WinningBidController', ['$scope', '$timeout', 'It
          $scope.item = null;
          $scope.error = null;
       }
-      
+
       $scope.getBidder = function() {
          if ( !$scope.bidderId ) return;
          $scope.bidder = BidderResource.get({bidderId:$scope.bidderId},
@@ -104,6 +140,11 @@ auctionControllers.controller('WinningBidController', ['$scope', '$timeout', 'It
          $timeout(function() {
             $('#bidderId').focus();
          }, 100);
+      }
+
+      $scope.allowBids = function() {
+         if (!$scope.item || !$scope.item.winningBids) return true;
+         return $scope.item && $scope.item.winningBids.length < $scope.item.maxWinners
       }
    }
 ]);

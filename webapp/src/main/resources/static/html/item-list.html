@@ -12,12 +12,16 @@
           <tr>
             <td>Number</td>
             <td>Name</td>
+            <td>Bids</td>
+            <td>Amount</td>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="item in items | filter:query">
             <td>{{item.id}}</td>
             <td><a href="#/item/{{item.id}}">{{item.name}}</a></td>
+            <td>{{item.bidCount}}</td>
+            <td>{{item.bidAmount}}</td>
           </tr>
         </tbody>
       </table>

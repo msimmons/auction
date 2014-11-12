@@ -1,5 +1,8 @@
 package net.contrapt.auction.config;
 
+import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import net.contrapt.auction.service.BidderService;
 import net.contrapt.auction.service.ItemService;
 import net.contrapt.auction.service.WinningBidService;
@@ -28,5 +31,11 @@ public class ServiceConfig {
     @Bean
     public WinningBidService winningBidService() {
         return new RepoWinningBidService();
+    }
+
+    @Bean
+    public Module customJson() {
+        SimpleModule module = new SimpleModule(new Version(1,0,0,null, "net.contrapt", "auction"));
+        return module;
     }
 }

@@ -3,8 +3,10 @@ package net.contrapt.auction.service.impl;
 import net.contrapt.auction.model.Bidder;
 import net.contrapt.auction.model.BidderRepository;
 import net.contrapt.auction.model.BidderSummary;
+import net.contrapt.auction.model.SpecificationHelper;
 import net.contrapt.auction.service.BidderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -18,6 +20,8 @@ public class RepoBidderService implements BidderService {
     @Autowired
     private BidderRepository bidderRepository;
 
+    private SpecificationHelper<Bidder> specificationHelper = new SpecificationHelper<Bidder>();
+
     @Override
     @Transactional
     public List<BidderSummary> getBidders() {
@@ -27,7 +31,7 @@ public class RepoBidderService implements BidderService {
     @Override
     @Transactional
     public Bidder getBidder(Long bidderId) {
-        return bidderRepository.findOne(bidderId);
+        return bidderRepository.findOne(specificationHelper.findByWithCollections("id", bidderId, "winningBids", "payments"));
     }
 
     @Override
