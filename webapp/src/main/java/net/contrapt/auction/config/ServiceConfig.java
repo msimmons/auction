@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import net.contrapt.auction.service.BidderService;
 import net.contrapt.auction.service.ItemService;
+import net.contrapt.auction.service.PaymentService;
 import net.contrapt.auction.service.WinningBidService;
 import net.contrapt.auction.service.impl.RepoBidderService;
 import net.contrapt.auction.service.impl.RepoItemService;
+import net.contrapt.auction.service.impl.RepoPaymentService;
 import net.contrapt.auction.service.impl.RepoWinningBidService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +33,11 @@ public class ServiceConfig {
     @Bean
     public WinningBidService winningBidService() {
         return new RepoWinningBidService();
+    }
+
+    @Bean
+    public PaymentService paymentService() {
+        return new RepoPaymentService();
     }
 
     @Bean

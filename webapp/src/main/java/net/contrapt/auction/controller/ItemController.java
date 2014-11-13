@@ -6,15 +6,13 @@ import net.contrapt.auction.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by msimmons on 8/28/14.
  */
 @RestController
-public class ItemController extends BaseController {
+public class ItemController extends AbstractController {
 
     @Autowired
     ItemService itemService;

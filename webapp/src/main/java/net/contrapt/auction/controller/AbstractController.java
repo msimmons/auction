@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/api")
-public abstract class BaseController {
+public abstract class AbstractController {
 
     protected Log log = LogFactory.getLog(getClass());
 

@@ -32,7 +32,7 @@ class BidderRepositorySpec extends Specification {
     PaymentRepository paymentRepository;
 
     def "should find a bidder by name" () {
-        setup:
+        given:
         def bidderName = "Mark Simmons"
         def bidder = bidderRepository.save(new Bidder(bidderName))
         entityManager.clear()
@@ -46,7 +46,7 @@ class BidderRepositorySpec extends Specification {
     }
 
     def "should find a bidder by email" () {
-        setup: "Save a bidder with email"
+        given: "A bidder with an email"
         def bidderName = "Mark Simmons"
         def bidderEmail = "msimmons@gmail.com"
         Bidder bidder = new Bidder(bidderName);

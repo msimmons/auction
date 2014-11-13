@@ -12,7 +12,7 @@ import java.util.List;
  * Created by msimmons on 8/28/14.
  */
 @RestController
-public class WinningBidController extends BaseController {
+public class WinningBidController extends AbstractController {
 
     @Autowired
     WinningBidService winningBidService;

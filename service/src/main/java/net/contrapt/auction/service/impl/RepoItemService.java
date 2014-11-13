@@ -15,21 +15,8 @@ import java.util.List;
  */
 public class RepoItemService implements ItemService {
 
-    private static Item[] items = new Item[] {
-          new Item("Jesse's Apple Pie"),
-          new Item("Farm Share"),
-          new Item("Weekend in Vermont")
-    };
-
     @Autowired
     ItemRepository itemRepository;
-
-    @PostConstruct
-    public void addItems() {
-        for ( Item item : items ) {
-            itemRepository.save(item);
-        }
-    }
 
     @Override
     public List<ItemSummary> getItems() {
