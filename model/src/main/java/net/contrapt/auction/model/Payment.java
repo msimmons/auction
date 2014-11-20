@@ -38,4 +38,20 @@ public class Payment extends AbstractEntity {
     public String uniqueKey() {
         return bidderId+":"+method+":"+reference;
     }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public Long getBidderId() {
+        return bidderId;
+    }
+
+    public String getMethod() {
+        return method;
+    }
 }

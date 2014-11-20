@@ -25,3 +25,10 @@ function($resource) {
    return $resource('/api/payment', {}, {
    });
 }])
+
+auctionServices.factory('InvoiceResource', ['$resource',
+function($resource) {
+   return $resource('/api/invoice/:bidderId', {}, {
+      query: {method: 'GET', params:{bidderId:''}, isArray:true}
+   });
+}])

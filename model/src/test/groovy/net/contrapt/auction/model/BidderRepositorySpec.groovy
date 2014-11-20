@@ -135,7 +135,7 @@ class BidderRepositorySpec extends Specification {
         }
 
         when: "retrieve one bidder"
-        Bidder saved = bidderRepository.findOne(specificationHelper.findByWithCollections("id", bidder1.getId(), "winningBids", "payments"))
+        Bidder saved = bidderRepository.findOne(specificationHelper.findBy("id", bidder1.getId(), "winningBids", "payments"))
 
         then:
         println(saved);

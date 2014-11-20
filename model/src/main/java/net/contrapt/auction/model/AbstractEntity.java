@@ -1,5 +1,7 @@
 package net.contrapt.auction.model;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.data.annotation.CreatedBy;
@@ -66,6 +68,11 @@ public abstract class AbstractEntity {
     }
 
     /**
+     * No arg constructor for serialization etc
+     */
+    protected AbstractEntity() {}
+
+    /**
      * Each entity should define its unique business key so that this abstract class can implement hash code and
      * equals based on that
      * @return A unique key string for the entity
@@ -79,12 +86,16 @@ public abstract class AbstractEntity {
 
     @Override
     public int hashCode() {
-        return uniqueKey()==null ? "".hashCode() : uniqueKey().hashCode();
+        return new HashCodeBuilder().append(uniqueKey()).toHashCode();
     }
 
     @Override
     public boolean equals(Object o) {
-        if ( o != null && getClass().equals(o.getClass()) ) return ((AbstractEntity)o).uniqueKey().equals(uniqueKey());
-        else return false;
+        if ( o == null || o.getClass() != getClass() ) return false;
+        AbstractEntity other = (AbstractEntity)o;
+        return new EqualsBuilder()
+              .append(uniqueKey(), other.uniqueKey())
+              .isEquals();
     }
+
 }

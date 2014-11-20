@@ -46,8 +46,8 @@ auctionControllers.controller('ItemController', ['$scope', '$routeParams', 'Item
    }
 ]);
 
-auctionControllers.controller('PaymentController', ['$scope', '$routeParams', 'BidderResource', 'PaymentResource',
-   function($scope, $routeParams, BidderResource, PaymentResource) {
+auctionControllers.controller('PaymentController', ['$scope', '$timeout', '$routeParams', 'BidderResource', 'PaymentResource', 'InvoiceResource',
+   function($scope, $timeout, $routeParams, BidderResource, PaymentResource, InvoiceResource) {
       $scope.bidderId = $routeParams.bidderId;
       $('#bidderId').focus();
       $scope.getBidder = function() {
@@ -60,6 +60,24 @@ auctionControllers.controller('PaymentController', ['$scope', '$routeParams', 'B
             $scope.error=response.data.exception;
             $('#bidderId').focus();
          });
+         $scope.invoice = InvoiceResource.query({bidderId:$scope.bidderId},
+         function(invoice) {
+            $scope.computeBalance();
+            $('#method').focus();
+         },
+         function(response) {
+            $scope.error=response.data.exception;
+             $timeout(function() {
+                $('#bidderId').focus();
+             }, 100);
+         });
+      }
+
+      $scope.computeBalance = function() {
+         $scope.balance = 0;
+         $scope.invoice.forEach( function(line) {
+            $scope.balance += line.amount;
+         });
       }
 
       $scope.clearBidder = function() {
@@ -67,19 +85,20 @@ auctionControllers.controller('PaymentController', ['$scope', '$routeParams', 'B
          $scope.reference = null;
          $scope.amount = null;
          $scope.error = null;
+         $scope.invoice = null;
       }
 
       $scope.addPayment = function() {
          if ( !$scope.bidderId || !$scope.amount ) return;
          $scope.payment = new PaymentResource({bidderId:$scope.bidderId, method:$scope.method, reference:$scope.reference, amount:$scope.amount});
          $scope.payment.$save({}, function(payment) {
-            $scope.bidder.payments.push(payment)
-            $scope.clearBidder();
-            $scope.bidderId = null;
+            $scope.getBidder();
          }, function(response) {
             $scope.error = response.data.exception;
          });
-         $('#bidderId').focus();
+         $timeout(function() {
+            $('#bidderId').focus();
+         }, 100);
       }
 
       $scope.allowPayments = function() {

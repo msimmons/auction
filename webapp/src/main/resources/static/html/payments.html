@@ -15,6 +15,9 @@
             <input size="10" class="form-control col-sm-2" id="amount" name="amount" placeholder="Payment Amount" ng-model="amount" type="number" ng-disabled="!allowPayments()" required/>
         </div>
         <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+        <div class="form-group">
+            <input size="10" class="form-control col-sm-2" id="balance" name="balance" placeholder="Balance" ng-model="balance" type="number" ng-disabled/>
+        </div>
     </form>
     <span ng-show="error" class="error">{{error}}</span>
     <span ng-show="!form.bidderId.$pristine && form.bidderId.$invalid" class="help-block">Enter a valid numeric bidder number</span>
@@ -29,13 +32,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="line in invoice.lines">
+                <tr ng-repeat="line in invoice">
                     <td>{{line.description}}</td>
                     <td>{{line.amount | currency}}</td>
                 </tr>
                 </tbody>
             </table>
-            <span ng-if="!invoice.lines.length">No line items</span>
+            <span ng-if="!invoice.length">No line items</span>
         </div>
     </div>
 </div>

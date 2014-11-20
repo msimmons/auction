@@ -1,10 +1,8 @@
 package net.contrapt.auction.service;
 
 import net.contrapt.auction.model.Payment;
-import net.contrapt.auction.model.WinningBid;
 
-import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by msimmons on 10/28/14.
@@ -12,8 +10,13 @@ import java.util.List;
 public interface PaymentService {
 
     /**
-     * Add a payment to the system
+     * Add a payment for the given bidder
      */
-    public Payment addPayment(Long bidderId, String method, String reference, BigDecimal amount);
+    public Payment addPayment(Payment payment);
+
+    /**
+     * Return the invoice information for the given bidder
+     */
+    public Set<InvoiceLine> getInvoice(Long bidderId);
 
 }

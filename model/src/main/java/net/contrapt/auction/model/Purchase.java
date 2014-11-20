@@ -5,6 +5,8 @@ package net.contrapt.auction.model;
  */
 public class Purchase extends AbstractEntity {
 
+    protected Purchase() {}
+
     @Override
     public String uniqueKey() {
         return null;

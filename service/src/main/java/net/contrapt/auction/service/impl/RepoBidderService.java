@@ -6,10 +6,8 @@ import net.contrapt.auction.model.BidderSummary;
 import net.contrapt.auction.model.SpecificationHelper;
 import net.contrapt.auction.service.BidderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -20,7 +18,7 @@ public class RepoBidderService implements BidderService {
     @Autowired
     private BidderRepository bidderRepository;
 
-    private SpecificationHelper<Bidder> specificationHelper = new SpecificationHelper<Bidder>();
+    private SpecificationHelper<Bidder> spec = new SpecificationHelper<Bidder>();
 
     @Override
     @Transactional
@@ -31,12 +29,14 @@ public class RepoBidderService implements BidderService {
     @Override
     @Transactional
     public Bidder getBidder(Long bidderId) {
-        return bidderRepository.findOne(specificationHelper.findByWithCollections("id", bidderId, "winningBids", "payments"));
+        return bidderRepository.findOne(spec.findBy("id", bidderId, "winningBids", "payments"));
     }
 
     @Override
     @Transactional
     public Bidder saveBidder(Bidder bidder) {
+        if ( bidder.getId() == null && bidderRepository.findByName(bidder.getName()) != null )
+            throw new IllegalStateException("Bidder with name "+bidder.getName()+" already exists");
         return bidderRepository.save(bidder);
     }
 }

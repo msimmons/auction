@@ -31,7 +31,7 @@ public class Bidder extends AbstractEntity {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "bidderId", updatable = false)
-    private Set<Payment> payments = new LinkedHashSet<Payment>();
+    private Set<Payment> payments = new HashSet<Payment>();
 
     public static Bidder create() {
         return new Bidder();
@@ -56,6 +56,10 @@ public class Bidder extends AbstractEntity {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public ContactInfo getContact() {
         return contact;
     }
@@ -65,15 +69,4 @@ public class Bidder extends AbstractEntity {
         return name;
     }
 
-    public static Specification<Bidder> eagerJoin(final String[] attributeNames) {
-        return new Specification<Bidder>() {
-            @Override
-            public Predicate toPredicate(Root<Bidder> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                for ( String attributeName : attributeNames ) {
-                    root.fetch(attributeName, JoinType.LEFT);
-                }
-                return null;
-            }
-        };
-    }
 }
