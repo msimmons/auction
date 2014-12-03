@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface ItemService {
 
-    public List<ItemSummary> getItems();
+    public List<ItemSummary> getItemSummaries();
 
     public Item saveItem(Item item);
 

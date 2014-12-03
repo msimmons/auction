@@ -15,7 +15,7 @@ public interface BidderService {
      * Return a list of summarized bidder objects
      * @return
      */
-    public List<BidderSummary> getBidders();
+    public List<BidderSummary> getBidderSummaries();
 
     /**
      * Return full bidder object with all relationships

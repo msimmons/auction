@@ -17,6 +17,7 @@ auctionControllers.controller('BidderListController', ['$scope', 'BidderResource
 auctionControllers.controller('BidderController', ['$scope', '$routeParams', 'BidderResource',
    function($scope, $routeParams, BidderResource) {
       $scope.isCreate = ($routeParams.bidderId == -1);
+      $('#name').focus();
       $scope.bidder = BidderResource.get({bidderId:$routeParams.bidderId});
       $scope.saveBidder = function() {
          $scope.bidder.$save();
@@ -49,11 +50,11 @@ auctionControllers.controller('ItemController', ['$scope', '$routeParams', 'Item
 auctionControllers.controller('PaymentController', ['$scope', '$timeout', '$routeParams', 'BidderResource', 'PaymentResource', 'InvoiceResource',
    function($scope, $timeout, $routeParams, BidderResource, PaymentResource, InvoiceResource) {
       $scope.bidderId = $routeParams.bidderId;
-      $('#bidderId').focus();
       $scope.getBidder = function() {
          if ( !$scope.bidderId ) return;
          $scope.bidder = BidderResource.get({bidderId:$scope.bidderId},
          function(bidder) {
+            $scope.bidderId = bidder.id;
             $('#method').focus();
          },
          function(response) {
@@ -93,17 +94,18 @@ auctionControllers.controller('PaymentController', ['$scope', '$timeout', '$rout
          $scope.payment = new PaymentResource({bidderId:$scope.bidderId, method:$scope.method, reference:$scope.reference, amount:$scope.amount});
          $scope.payment.$save({}, function(payment) {
             $scope.getBidder();
+            $timeout(function() {
+               $('#bidderId').focus();
+            }, 100);
          }, function(response) {
             $scope.error = response.data.exception;
          });
-         $timeout(function() {
-            $('#bidderId').focus();
-         }, 100);
       }
 
       $scope.allowPayments = function() {
          return true;
       }
+      $scope.getBidder();
    }
 ]);
 

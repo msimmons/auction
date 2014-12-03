@@ -15,30 +15,57 @@
             <input size="10" class="form-control col-sm-2" id="amount" name="amount" placeholder="Payment Amount" ng-model="amount" type="number" ng-disabled="!allowPayments()" required/>
         </div>
         <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
-        <div class="form-group">
-            <input size="10" class="form-control col-sm-2" id="balance" name="balance" placeholder="Balance" ng-model="balance" type="number" ng-disabled/>
-        </div>
     </form>
     <span ng-show="error" class="error">{{error}}</span>
     <span ng-show="!form.bidderId.$pristine && form.bidderId.$invalid" class="help-block">Enter a valid numeric bidder number</span>
     <div><hr/></div>
+    <div class="col-sm-2"><h4>Balance: {{balance}}</h4></div>
+    <div><hr/></div>
     <div class="row">
         <div class="col-md-10">
             <table class="table table-striped table-bordered table-condensed">
+                <h5>Winning Bids</h5>
                 <thead>
                 <tr>
-                    <td>Description</td>
+                    <td>Item Number</td>
                     <td>Amount</td>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="line in invoice">
-                    <td>{{line.description}}</td>
-                    <td>{{line.amount | currency}}</td>
+                <tr ng-repeat="bid in bidder.winningBids">
+                    <td>{{bid.itemId}}</td>
+                    <td>{{bid.amount | currency}}</td>
+                </tr>
+                <tr ng-repeat="payment in bidder.payments">
+                    <td>{{payment.method}}</td>
+                    <td>{{payment.reference}}</td>
+                    <td>{{payment.amount | currency}}</td>
                 </tr>
                 </tbody>
             </table>
-            <span ng-if="!invoice.length">No line items</span>
+            <span ng-if="!bidder.winningBids.length">No winning bids</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <table class="table table-striped table-bordered table-condensed">
+                <h5>Payments</h5>
+                <thead>
+                <tr>
+                    <td>Method</td>
+                    <td>Reference</td>
+                    <td>Amount</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="payment in bidder.payments">
+                    <td>{{payment.method}}</td>
+                    <td>{{payment.reference}}</td>
+                    <td>{{payment.amount | currency}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <span ng-if="!bidder.payments.length">No payments</span>
         </div>
     </div>
 </div>

@@ -26,7 +26,7 @@ public class BidderController extends AbstractController {
 
     @RequestMapping(value="/bidder", method = RequestMethod.GET)
     public Collection<BidderSummary> query() {
-        Collection<BidderSummary> bidders = bidderService.getBidders();
+        Collection<BidderSummary> bidders = bidderService.getBidderSummaries();
         return bidders;
     }
 

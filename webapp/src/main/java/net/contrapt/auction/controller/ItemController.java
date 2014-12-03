@@ -24,7 +24,7 @@ public class ItemController extends AbstractController {
 
     @RequestMapping(value = "/item", method = RequestMethod.GET)
     public List<ItemSummary> query() {
-        return itemService.getItems();
+        return itemService.getItemSummaries();
     }
 
     @RequestMapping(value = "/item", method = RequestMethod.POST)

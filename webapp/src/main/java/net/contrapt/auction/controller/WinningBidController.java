@@ -28,19 +28,13 @@ public class WinningBidController extends AbstractController {
     }
 
     @RequestMapping(value = "/bid", method = RequestMethod.POST)
-    public WinningBid saveBid(@RequestBody WinningBidData bid) {
-        return winningBidService.addWinningBid(bid.itemId, bid.bidderId, bid.amount);
+    public WinningBid saveBid(@RequestBody WinningBid bid) {
+        return winningBidService.addWinningBid(bid.getItemId(), bid.getBidderId(), bid.getAmount());
     }
 
     @RequestMapping(value = "/bid", method = RequestMethod.DELETE)
-    public WinningBid removeBid(@RequestBody WinningBidData bid) {
-        return winningBidService.removeWinningBid(bid.id);
+    public WinningBid removeBid(@RequestBody WinningBid bid) {
+        return winningBidService.removeWinningBid(bid.getId());
     }
 
-    public static class WinningBidData {
-        public Long id;
-        public Long itemId;
-        public Long bidderId;
-        public BigDecimal amount;
-    }
 }

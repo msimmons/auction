@@ -33,6 +33,10 @@ public class Bidder extends AbstractEntity {
     @JoinColumn(name = "bidderId", updatable = false)
     private Set<Payment> payments = new HashSet<Payment>();
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "bidderId", updatable = false)
+    private Set<Purchase> purchases = new HashSet<Purchase>();
+
     public static Bidder create() {
         return new Bidder();
     }
@@ -46,6 +50,10 @@ public class Bidder extends AbstractEntity {
 
     public Set<WinningBid> getWinningBids() {
         return Collections.unmodifiableSet(winningBids);
+    }
+
+    public Set<Purchase> getPurchases() {
+        return Collections.unmodifiableSet(purchases);
     }
 
     public Set<Payment> getPayments() {

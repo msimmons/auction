@@ -19,7 +19,7 @@ public class RepoItemService implements ItemService {
     ItemRepository itemRepository;
 
     @Override
-    public List<ItemSummary> getItems() {
+    public List<ItemSummary> getItemSummaries() {
         return itemRepository.findAllSummary();
     }
 

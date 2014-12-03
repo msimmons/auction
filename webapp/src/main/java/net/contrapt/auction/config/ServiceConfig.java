@@ -43,6 +43,7 @@ public class ServiceConfig {
     @Bean
     public Module customJson() {
         SimpleModule module = new SimpleModule(new Version(1,0,0,null, "net.contrapt", "auction"));
+        // Add custom serializers and deserializers to the module here
         return module;
     }
 }

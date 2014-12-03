@@ -22,7 +22,7 @@ public class RepoBidderService implements BidderService {
 
     @Override
     @Transactional
-    public List<BidderSummary> getBidders() {
+    public List<BidderSummary> getBidderSummaries() {
         return bidderRepository.findAllSummary();
     }
 
