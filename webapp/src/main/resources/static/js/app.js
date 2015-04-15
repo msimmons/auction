@@ -1,9 +1,9 @@
+'use strict';
+
 var auctionApp = angular.module('auctionApp', [
       'ngRoute',
       'ngResource',
-      'ui.bootstrap',
-      'auctionControllers',
-      'auctionServices'
+      'ui.bootstrap'
 ]);
 
 auctionApp.config(['$routeProvider',

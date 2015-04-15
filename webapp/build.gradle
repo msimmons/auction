@@ -1,5 +1,3 @@
-apply plugin: 'spring-boot'
-
 buildscript {
     repositories {
         mavenCentral()
@@ -10,19 +8,28 @@ buildscript {
     }
 }
 
+plugins {
+    id "com.eriwen.gradle.js" version "1.12.1"
+}
+
+apply plugin: 'spring-boot'
+
+
 dependencies {
-   
-   compile project(":service"),
-    "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
-      "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}",
-      "org.webjars:angularjs:${angularjsVersion}",
-      "org.webjars:jquery:${jqueryVersion}",
-      "org.webjars:bootstrap:${bootstrapVersion}",
-      "org.webjars:angular-ui-bootstrap:${angularUiVersion}"
 
-   runtime "org.hsqldb:hsqldb"
+    compile(project(":service"))
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}")
 
-   testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    compile("org.webjars:angularjs:${angularjsVersion}")
+    compile("org.webjars:jquery:${jqueryVersion}")
+    compile("org.webjars:bootstrap:${bootstrapVersion}")
+    compile("org.webjars:angular-ui-bootstrap:${angularUiVersion}")
+
+    runtime("org.hsqldb:hsqldb")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 
 }
 
@@ -36,3 +43,18 @@ processResources {
 bootRun {
     systemProperty 'hsqldb.location', "${buildDir}/data/auction"
 }
+
+combineJs {
+    source = fileTree(dir: "${projectDir}/src/main/resources/static/js", include: "**/*.js")
+    dest = file("${buildDir}/auction.js")
+}
+
+minifyJs {
+    source = combineJs
+    dest = file("${buildDir}/resources/main/static/js/auction-min.js")
+    closure {
+        warningLevel = 'QUIET'
+    }
+}
+
+processResources.dependsOn minifyJs
