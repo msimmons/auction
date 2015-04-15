@@ -1,7 +1,10 @@
 package net.contrapt.auction.service;
 
 import net.contrapt.auction.model.Item;
+import net.contrapt.auction.model.ItemRepository;
 import net.contrapt.auction.model.ItemSummary;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,4 +18,29 @@ public interface ItemService {
     public Item saveItem(Item item);
 
     public Item getItem(Long itemId);
+
+    public class Impl implements ItemService {
+
+        @Autowired
+        ItemRepository itemRepository;
+
+        @Override
+        @Transactional
+        public List<ItemSummary> getItemSummaries() {
+            return itemRepository.findAllSummary();
+        }
+
+        @Override
+        @Transactional
+        public Item saveItem(Item item) {
+            return itemRepository.save(item);
+        }
+
+        @Override
+        @Transactional
+        public Item getItem(Long itemId) {
+            return itemRepository.findOne(itemId);
+        }
+
+    }
 }
