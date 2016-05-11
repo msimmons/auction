@@ -1,12 +1,10 @@
 package net.contrapt.auction.controller;
 
-import net.contrapt.auction.model.Payment;
 import net.contrapt.auction.service.InvoiceLine;
 import net.contrapt.auction.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.Set;
 
 /**

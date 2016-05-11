@@ -1,31 +1,38 @@
+buildscript {
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath 'org.springframework:springloaded:1.2.1.RELEASE'
+    }
+}
+
 ext {
-   springBootVersion = "1.2.1.RELEASE"
-   springVersion = "4.0.6.RELEASE"
-   springDataVersion = "1.7.0.RELEASE"
-   angularjsVersion = "1.2.23"
-   jqueryVersion = "2.1.1"
-   bootstrapVersion = "3.2.0"
-   angularUiVersion = "0.11.0-2"
-   snapshotVersion = "$releaseVersion-SNAPSHOT"
+    snapshotVersion = "$releaseVersion-SNAPSHOT"
 }
 ext["currentVersion"] = hasProperty("release") ? releaseVersion : snapshotVersion;
 
 allprojects {
-   apply plugin: 'maven'
+    apply plugin: 'maven'
 
-   group = "net.contrapt"
-   version = currentVersion;
+    group = "net.contrapt"
+    version = currentVersion;
 }
 description = 'Auction Application'
 
 
 task wrapper(type: Wrapper) {
-   gradleVersion = '2.0'
+    gradleVersion = '2.13'
 }
 
 subprojects {
-   
-   apply plugin: 'java'
+
+    apply plugin: 'java'
+    apply plugin: 'kotlin'
     apply plugin: 'groovy'
 
     repositories {
@@ -34,18 +41,21 @@ subprojects {
     }
 
     dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
         testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
-        testCompile("org.spockframework:spock-core:0.7-groovy-2.0")
-        testCompile("org.spockframework:spock-spring:0.7-groovy-2.0")
+        testCompile("org.codehaus.groovy:groovy:$groovyVersion")
+        testCompile("org.spockframework:spock-core:$spockVersion")
+        testCompile("org.spockframework:spock-spring:$spockVersion")
     }
 
 // Define system properties required by tests
-   test {
-      testLogging.showStandardStreams = true
-      testLogging.exceptionFormat= "full"
-      systemProperties = [
-         'test.dataDirectory': "$buildDir/resources/test"
-      ]
-   }
+    test {
+        testLogging.showStandardStreams = true
+        testLogging.exceptionFormat = "full"
+        systemProperties = [
+            'test.dataDirectory': "$buildDir/resources/test"
+        ]
+    }
 }
 

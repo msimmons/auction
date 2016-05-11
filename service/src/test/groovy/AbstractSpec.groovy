@@ -1,4 +1,3 @@
-import net.contrapt.auction.model.BidderRepository
 import net.contrapt.auction.service.BidderService
 import org.springframework.context.annotation.Configuration
 import spock.lang.Specification

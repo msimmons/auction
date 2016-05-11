@@ -18,7 +18,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="bidder in filteredBidders = (bidders | filter:query)" ng-if="bidderOnPage($index)">
+          <tr ng-repeat="bidder in filteredBidders = (bidders | filter:query) | orderBy:'-count'" ng-if="bidderOnPage($index)">
             <td>{{bidder.id}}</td>
             <td><a href="#/bidder/{{bidder.id}}">{{bidder.name}}</a></td>
             <td><a href="#/payments/{{bidder.id}}">{{bidder.totalBids | currency}}</a></td>

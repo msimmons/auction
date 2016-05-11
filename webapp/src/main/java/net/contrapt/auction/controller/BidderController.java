@@ -1,7 +1,5 @@
 package net.contrapt.auction.controller;
 
-import net.contrapt.auction.model.Bidder;
-import net.contrapt.auction.model.BidderSummary;
 import net.contrapt.auction.service.BidderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +17,7 @@ public class BidderController extends AbstractController {
 
     @RequestMapping(value = "/bidder/{bidderId}", method = RequestMethod.GET)
     public Bidder get(@PathVariable(value = "bidderId") Long bidderId) {
-        Bidder bidder = bidderId < 0 ? Bidder.create() : bidderService.getBidder(bidderId);
+        Bidder bidder = bidderId < 0 ? Bidder.Companion.create() : bidderService.getBidder(bidderId);
         if ( bidder == null ) throw new IllegalArgumentException("No bidder found with id "+bidderId);
         return bidder;
     }

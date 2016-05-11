@@ -1,11 +1,9 @@
 package net.contrapt.auction.controller;
 
-import net.contrapt.auction.model.WinningBid;
 import net.contrapt.auction.service.WinningBidService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**

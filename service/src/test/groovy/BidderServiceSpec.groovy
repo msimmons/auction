@@ -1,6 +1,3 @@
-import net.contrapt.auction.model.Bidder
-import net.contrapt.auction.model.BidderSummary
-
 /**
  * Created by msimmons on 2/20/15.
  */

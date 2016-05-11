@@ -75,6 +75,7 @@ class BidderRepositorySpec extends Specification {
         itemRepository.save(item);
         winningBidRepository.save(new WinningBid(item, bidder, bid));
         paymentRepository.save(new Payment(bidder.getId(), "check", "REF1029", payment));
+        entityManager.flush()
         entityManager.clear()
 
         when: "retrieve all bidder summaries"
@@ -103,8 +104,8 @@ class BidderRepositorySpec extends Specification {
         summaries.size() == 1
         BidderSummary summary = summaries.get(0)
         summary.getName().equals(bidderName)
-        summary.getTotalBids()==null
-        summary.getTotalPayments()==null
+        summary.getTotalBids()==BigDecimal.ZERO
+        summary.getTotalPayments()==BigDecimal.ZERO
     }
 
     def "should do an eager join to as specified by specification"() {
@@ -123,6 +124,7 @@ class BidderRepositorySpec extends Specification {
         paymentRepository.save(new Payment(bidder1.getId(), "check", "REF1029", payment));
         paymentRepository.save(new Payment(bidder2.getId(), "check", "REF1029", payment));
         paymentRepository.save(new Payment(bidder3.getId(), "check", "REF1029", payment));
+        entityManager.flush()
         entityManager.clear()
         SpecificationHelper<Bidder> specificationHelper = new SpecificationHelper<Bidder>()
 
@@ -135,7 +137,7 @@ class BidderRepositorySpec extends Specification {
         }
 
         when: "retrieve one bidder"
-        Bidder saved = bidderRepository.findOne(specificationHelper.findBy("id", bidder1.getId(), "winningBids", "payments"))
+        Bidder saved = bidderRepository.findOne((org.springframework.data.jpa.domain.Specification<Bidder>)specificationHelper.findBy("id", bidder1.getId(), "winningBids", "payments"))
 
         then:
         println(saved);

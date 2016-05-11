@@ -1,19 +1,10 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
-}
-
+/*
 plugins {
     id "com.eriwen.gradle.js" version "1.12.1"
 }
+*/
 
 apply plugin: 'spring-boot'
-
 
 dependencies {
 
@@ -44,11 +35,13 @@ bootRun {
     systemProperty 'hsqldb.location', "${buildDir}/data/auction"
 }
 
-combineJs {
-    source = fileTree(dir: "${projectDir}/src/main/resources/static/js", include: "**/*.js")
-    dest = file("${buildDir}/auction.js")
-}
 
+//combineJs {
+//    source = fileTree(dir: "${projectDir}/src/main/resources/static/js", include: "**/*.js")
+//    dest = file("${buildDir}/auction.js")
+//}
+
+/*
 minifyJs {
     source = combineJs
     dest = file("${buildDir}/resources/main/static/js/auction-min.js")
@@ -58,3 +51,4 @@ minifyJs {
 }
 
 processResources.dependsOn minifyJs
+*/

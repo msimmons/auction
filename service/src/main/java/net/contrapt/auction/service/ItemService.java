@@ -1,8 +1,5 @@
 package net.contrapt.auction.service;
 
-import net.contrapt.auction.model.Item;
-import net.contrapt.auction.model.ItemRepository;
-import net.contrapt.auction.model.ItemSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 

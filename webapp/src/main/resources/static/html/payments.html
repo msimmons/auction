@@ -36,11 +36,6 @@
                     <td>{{bid.itemId}}</td>
                     <td>{{bid.amount | currency}}</td>
                 </tr>
-                <tr ng-repeat="payment in bidder.payments">
-                    <td>{{payment.method}}</td>
-                    <td>{{payment.reference}}</td>
-                    <td>{{payment.amount | currency}}</td>
-                </tr>
                 </tbody>
             </table>
             <span ng-if="!bidder.winningBids.length">No winning bids</span>

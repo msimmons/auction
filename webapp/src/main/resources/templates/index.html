@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css"/>
     <!--link rel="stylesheet" href="/webjars/bootstrap/3.2.0/css/bootstrap-responsive.min.css"-->
   </head>
-  <body>
+  <body class="panel panel-default">
+  <div class="panel-heading">
     <h1>Auction</h1>
     <nav class="navbar navbar-default navbar-static-top" role="navigation">
        <ul class="nav nav-pills">
@@ -19,8 +20,9 @@
          <li><a href="#/payments">Take Payments</a></li>
        </ul>
     </nav>
+  </div>
 
-    <div class="container" ng-view=""></div>
+    <div class="container panel-body" ng-view=""></div>
     
     <!-- 3d Party Javascripts -->
     <script type="text/javascript" src="webjars/jquery/2.1.1/jquery.min.js"></script>
