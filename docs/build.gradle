@@ -1,0 +1,54 @@
+apply plugin: 'org.asciidoctor.convert'
+
+configurations {
+    docpath
+    plantuml
+}
+
+dependencies {
+    plantuml "net.sourceforge.plantuml:plantuml:8039"
+    docpath project(":model")
+    docpath project(":service")
+    docpath project(":webapp")
+}
+
+javadoc {
+    source = [
+        project(':model').sourceSets.main.allJava,
+        project(':service').sourceSets.main.allJava,
+        project(':webapp').sourceSets.main.allJava
+    ]
+    classpath = configurations.docpath
+    destinationDir = file('build/javadoc')
+}
+
+asciidoctorj {
+    version = '1.5.4'
+}
+
+asciidoctor.dependsOn 'plantuml'
+asciidoctor {
+    sourceDir "$projectDir/src/asciidoc"
+    backends=['html5','pdf']
+    attributes 'image-dir':"$buildDir/asciidoc/images"
+}
+
+task plantuml(description: 'Generates sequence diagrams from plantuml input files') {
+    def ft = fileTree(dir: 'src/plantuml', include: '**/*.puml')
+    def outDir = file("$buildDir/asciidoc/images")
+    inputs.dir ft.dir
+    outputs.dir outDir
+    doFirst {
+        outDir.mkdirs()
+    }
+    ft.each { file ->
+        doLast {
+            javaexec {
+                main = 'net.sourceforge.plantuml.Run'
+                classpath = configurations.plantuml
+                jvmArgs = ["-Djava.awt.headless=true"]
+                args = ['-tsvg', '-o', "${outDir.path}", "${file.path}"]
+            }
+        }
+    }
+}

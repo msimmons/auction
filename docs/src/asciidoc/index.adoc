@@ -1,0 +1,8 @@
+= Auction
+:revnumber: {project-version}
+:toc: left
+:doctype: book
+
+== Overview
+
+image::{image-dir}/test.svg[Architectural Overview, align="center", role="thumb"]
